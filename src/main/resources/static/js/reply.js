@@ -34,6 +34,7 @@ async function getList({bno, page, size, goLast}){
 
 async function addReply(replyObj) {
     const response = await axios.post(`/replies/`,replyObj)
+    console.log("response.data : ",response.data)
     return response.data
 }
 

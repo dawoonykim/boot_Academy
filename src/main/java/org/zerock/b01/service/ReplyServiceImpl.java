@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class ReplyServiceImpl implements ReplyService{
+public class ReplyServiceImpl implements ReplyService {
 
     private final ReplyRepository replyRepository;
 
@@ -70,28 +70,25 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public PageResponseDTO<ReplyDTO> getListOfBoard(Long bno, PageRequestDTO pageRequestDTO) {
-        // bno 값이 null인지 확인
-        if (bno == null) {
-            log.info("bno 값이 전달되지 않았습니다.");
-            // null이면 적절한 예외 처리를 수행하거나, 기본값을 설정하거나, 오류를 반환합니다.
-            throw new IllegalArgumentException("bno 값이 전달되지 않았습니다.");
-        }
-        log.info("bno 값이 전달되었습니다."+"(bno="+bno+")");
+
+        log.info("PageRequestDTO : " + pageRequestDTO);
         Pageable pageable = PageRequest.of(pageRequestDTO.getPage() <= 0 ? 0 : pageRequestDTO.getPage() - 1,
                 pageRequestDTO.getSize(),
                 Sort.by("rno").ascending());
-
         log.info("ReplyServiceImpl의 getListOfBoard의 Pageable : " + pageable);
 
-        Page<Reply> result = replyRepository.listOfBoard(bno, pageable);
+        log.info("1.bno 값이 전달되었습니다." + "(bno=" + bno + ")");
 
+        Page<Reply> result = replyRepository.listOfBoard(bno, pageable);
         log.info("ReplyServiceImpl의 getListOfBoard의 result : " + result.getContent());
+
         List<ReplyDTO> dtoList =
                 result.getContent().stream().map(reply -> modelMapper.map(reply, ReplyDTO.class))
                         .collect(Collectors.toList());
 
-        log.info("ReplyServiceImpl의 getListOfBoard의 dtoList : " + dtoList);
+        log.info("2.bno 값이 전달되었습니다." + "(bno=" + bno + ")");
 
+        log.info("ReplyServiceImpl의 getListOfBoard의 dtoList : " + dtoList);
         return PageResponseDTO.<ReplyDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)
                 .dtoList(dtoList)
