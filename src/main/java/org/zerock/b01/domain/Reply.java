@@ -1,7 +1,6 @@
 package org.zerock.b01.domain;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity // 중복된 데이터 값을 비교할 수 있는 primary key가 필요하다
