@@ -39,6 +39,7 @@ public class ReplyServiceImpl implements ReplyService {
 
         // ReplyDTO의 bno를 사용하여 board 엔티티를 찾아서 설정
         Board board = boardRepository.findById(replyDTO.getBno()).orElseThrow(() -> new IllegalArgumentException("Invalid bno"));
+        // Board board = boardRepository.findById(replyDTO.getBno()).orElseThrow();
         reply.setBoard(board);
         // 1. boardRepository.findById(replyDTO.getBno()): boardRepository를 통해 replyDTO에 있는 bno를 사용하여 해당하는 Board 엔티티를 데이터베이스에서 찾습니다.
         // 2. orElseThrow(() -> new IllegalArgumentException("Invalid bno")): findById 메서드의 결과가 null이면 NoSuchElementException을 던집니다. 이를 방지하기 위해 orElseThrow 메서드를 사용하여 null이 아닌 경우에는 찾은 Board 엔티티를 반환하고, null인 경우에는 예외를 던집니다. 예외 메시지로는 "Invalid bno"를 사용합니다.
