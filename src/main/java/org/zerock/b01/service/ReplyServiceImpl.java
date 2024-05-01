@@ -30,7 +30,7 @@ public class ReplyServiceImpl implements ReplyService {
     private final ModelMapper modelMapper;
 
     private final BoardRepository boardRepository;
-    ;
+
     @Override
     public Long register(ReplyDTO replyDTO) {
 
