@@ -48,29 +48,29 @@ public class ReplyController {
 
     @ApiOperation(value = "Replies POST", notes = "POST 방식으로 댓글 등록")
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String,Long> register(
-            @Valid @RequestBody ReplyDTO replyDTO,
-            BindingResult bindingResult)throws BindException{
+    public Map<String, Long> register(@Valid @RequestBody ReplyDTO replyDTO, BindingResult bindingResult) throws BindException {
 
         log.info("ReplyController의 ReplyDTO : " + replyDTO);
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
+            log.info("ReplyController의 bindingResult.hasErrors()");
             throw new BindException(bindingResult);
         }
 
         Map<String, Long> resultMap = new HashMap<>();
-
+        log.info("ReplyController의 resultMap : " + resultMap.get("bno"));
+        log.info("ReplyController의 resultMap : " + resultMap.get("replyText"));
+        log.info("ReplyController의 resultMap : " + resultMap.get("replyer"));
         Long rno = replyService.register(replyDTO);
-
-        resultMap.put("rno",rno);
+        log.info("ReplyController의 rno : " + rno);
+        resultMap.put("rno", rno);
 
         return resultMap;
     }
 
     @ApiOperation(value = "Replies of Board", notes = "GET 방식으로 특정 게시물의 댓글 목록")
     @GetMapping(value = "/list/{bno}")
-    public PageResponseDTO<ReplyDTO> getList(@PathVariable("bno") Long bno,
-                                             PageRequestDTO pageRequestDTO){
+    public PageResponseDTO<ReplyDTO> getList(@PathVariable("bno") Long bno, PageRequestDTO pageRequestDTO) {
         log.info("ReplyController의 BNO : " + bno);
         PageResponseDTO<ReplyDTO> responseDTO = replyService.getListOfBoard(bno, pageRequestDTO);
 
@@ -79,7 +79,7 @@ public class ReplyController {
 
     @ApiOperation(value = "Read Reply", notes = "GET 방식으로 특정 댓글 조회")
     @GetMapping("/{rno}")
-    public ReplyDTO getReplyDTO( @PathVariable("rno") Long rno ){
+    public ReplyDTO getReplyDTO(@PathVariable("rno") Long rno) {
 
         ReplyDTO replyDTO = replyService.read(rno);
 
@@ -88,7 +88,7 @@ public class ReplyController {
 
     @ApiOperation(value = "Delete Reply", notes = "DELETE 방식으로 특정 댓글 삭제")
     @DeleteMapping("/{rno}")
-    public Map<String,Long> remove( @PathVariable("rno") Long rno ){
+    public Map<String, Long> remove(@PathVariable("rno") Long rno) {
 
         replyService.remove(rno);
 
@@ -100,10 +100,9 @@ public class ReplyController {
     }
 
 
-
     @ApiOperation(value = "Modify Reply", notes = "PUT 방식으로 특정 댓글 수정")
-    @PutMapping(value = "/{rno}", consumes = MediaType.APPLICATION_JSON_VALUE )
-    public Map<String,Long> remove( @PathVariable("rno") Long rno, @RequestBody ReplyDTO replyDTO ){
+    @PutMapping(value = "/{rno}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Long> remove(@PathVariable("rno") Long rno, @RequestBody ReplyDTO replyDTO) {
 
         replyDTO.setRno(rno); //번호를 일치시킴
 

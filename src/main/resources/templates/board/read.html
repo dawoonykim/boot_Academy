@@ -220,7 +220,9 @@
             replyText: replyText.value,
             replyer: replyer.value
         }
-
+        console.log(replyObj.bno)
+        console.log(replyObj.replyText)
+        console.log(replyObj.replyer)
         console.log("replyObj : ", replyObj)
         addReply(replyObj).then(result => {
             alert(result.rno)
@@ -302,6 +304,7 @@
             replyText: modifyText.value
         }
 
+        console.log("replyObj : ", replyObj)
         modifyReply(replyObj).then(result => {
             alert(result.rno + ' 댓글이 수정되었습니다.')
             replyText.value = ''
