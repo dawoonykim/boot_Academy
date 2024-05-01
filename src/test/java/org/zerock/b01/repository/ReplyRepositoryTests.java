@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.b01.domain.Board;
 import org.zerock.b01.domain.Reply;
 
+import java.util.stream.IntStream;
+
 @SpringBootTest
 @Log4j2
 public class ReplyRepositoryTests {
@@ -23,13 +25,19 @@ public class ReplyRepositoryTests {
 
 //    @Test
 //    public void testInsert(){
-//
+
 //        Long bno = 100L;
 //        Board board = Board.builder().bno(bno).build();
-//
 //        Reply reply=Reply.builder().board(board).replyText("댓글 연습1").replyer("user01").build();
-//
 //        replyRepository.save(reply);
+
+//        Long bno = 100L;
+//
+//        IntStream.rangeClosed(1, 20).forEach(i -> {
+//            Board board = Board.builder().bno(bno).build();
+//            Reply reply=Reply.builder().board(board).replyText("댓글 연습"+i).replyer("user"+i%5).build();
+//            replyRepository.save(reply);
+//        });
 //    }
 
 //    @Test

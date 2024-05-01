@@ -58,12 +58,15 @@ public class ReplyController {
         }
 
         Map<String, Long> resultMap = new HashMap<>();
-        log.info("ReplyController의 resultMap : " + resultMap.get("bno"));
-        log.info("ReplyController의 resultMap : " + resultMap.get("replyText"));
-        log.info("ReplyController의 resultMap : " + resultMap.get("replyer"));
+//        log.info("ReplyController의 resultMap : " + resultMap.get("bno"));
+//        log.info("ReplyController의 resultMap : " + resultMap.get("replyText"));
+//        log.info("ReplyController의 resultMap : " + resultMap.get("replyer"));
         Long rno = replyService.register(replyDTO);
         log.info("ReplyController의 rno : " + rno);
         resultMap.put("rno", rno);
+//        resultMap.put("bno",replyDTO.getBno());
+
+        log.info("ReplyController의 resultMap : " + resultMap.toString());
 
         return resultMap;
     }
@@ -73,7 +76,7 @@ public class ReplyController {
     public PageResponseDTO<ReplyDTO> getList(@PathVariable("bno") Long bno, PageRequestDTO pageRequestDTO) {
         log.info("ReplyController의 BNO : " + bno);
         PageResponseDTO<ReplyDTO> responseDTO = replyService.getListOfBoard(bno, pageRequestDTO);
-
+//        log.info("ReplyController의 PageResponseDTO responseDTO : "+responseDTO.toString());
         return responseDTO;
     }
 
