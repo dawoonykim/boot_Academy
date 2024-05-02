@@ -24,8 +24,4 @@ public class UploadResultDTO {
             return uuid + "_" + fileName;
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/main
