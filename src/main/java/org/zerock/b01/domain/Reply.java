@@ -21,7 +21,9 @@ public class Reply extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Board board;
+
     private String replyText;
+
     private String replyer;
 
     public void changeText(String text) {
