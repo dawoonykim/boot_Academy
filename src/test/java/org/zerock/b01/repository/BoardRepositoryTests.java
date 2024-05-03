@@ -4,22 +4,19 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.b01.domain.Board;
-import org.zerock.b01.dto.BoardListReplyCountDTO;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @SpringBootTest
 @Log4j2
 public class BoardRepositoryTests {
 
-//    @Autowired
-//    private BoardRepository boardRepository;
+    @Autowired
+    private BoardRepository boardRepository;
 
 //    @Test
 //    public void testInsert() {
@@ -161,4 +158,48 @@ public class BoardRepositoryTests {
 //        result.getContent().forEach(board -> log.info(board));
 //    }
 
+//    @Test
+//    public void testInsertWithImages() {
+//        Board board = Board.builder().title("Image Test").content("첨부파일 테스트").writer("tester").build();
+//
+//        for (int i = 0; i < 3; i++) {
+//            board.addImage(UUID.randomUUID().toString(), "file" + i + "jpg");
+//        }
+//
+//        boardRepository.save(board);
+//    }
+
+//    @Test
+//    public void testReadWithImages() {
+//        Optional<Board> result = boardRepository.findByIdWithImages(1L);
+//        Board board = result.orElseThrow();
+//
+//        log.info(board);
+//        log.info("-------------");
+//        for (BoardImage boardImage : board.getImageSet()) {
+//            log.info(boardImage);
+//        }
+//
+//    }
+
+    @Transactional
+    @Commit
+    @Test
+    public void testModifyImages() {
+        Optional<Board> result = boardRepository.findByIdWithImages(1L);
+
+        Board board = result.orElseThrow();
+
+        // 기존의 첨부 파일들은 삭제
+        board.clearImages();
+
+        // 새로운 첨부 파일들
+
+        for (int i = 0; i < 2; i++) {
+            board.addImage(UUID.randomUUID().toString(), "updatefile" + i + "jgp");
+        }
+
+        boardRepository.save(board);
+
+    }
 }
