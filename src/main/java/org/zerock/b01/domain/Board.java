@@ -30,7 +30,7 @@ public class Board extends BaseEntity {
     @OneToMany(mappedBy = "board",
             cascade = {CascadeType.ALL},
             fetch = FetchType.LAZY,
-            orphanRemoval = true)
+            orphanRemoval = true    )
     @Builder.Default
     @BatchSize(size = 20)
     private Set<BoardImage> imageSet = new HashSet<>();
